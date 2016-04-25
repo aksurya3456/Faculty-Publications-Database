@@ -1,0 +1,8 @@
+root
+toor
+fpd
+
+*only top three lines are significant in this file
+*first line is user id of the database
+*second line is password
+*third line is database

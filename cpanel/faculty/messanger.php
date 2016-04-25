@@ -1,0 +1,30 @@
+<?php
+$con=mysqli_connect("localhost","root","toor","fpd");
+$from=$_COOKIE['usr345faculty'];
+$to=$_COOKIE['file345admin'];
+$report=$_COOKIE['file345rep'];
+//print_r($_POST);
+$content=$_POST['content'];
+
+//print_r($_POST);
+$moment=date("Y-m-d h:i:sa");
+/*
+desc message;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| from_id   | int(11)      | NO   | MUL | NULL    |       |
+| to_id     | int(11)      | NO   | MUL | NULL    |       |
+| report_id | int(11)      | NO   | MUL | NULL    |       |
+| content   | varchar(255) | YES  |     | NULL    |       |
+| moment    | varchar(50)  | YES  |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+*/
+$query="insert into message(from_id,to_id,report_id,content,moment) values($from,$to,$report,'".$content."','".$moment."')";
+$result=mysqli_query($con,$query);
+$row=mysqli_fetch_assoc($result);
+echo $query;
+include "reportDetails.php";
+//echo $admin."<br>".$faculty;
+?>

@@ -1,0 +1,22 @@
+<html>
+<head>
+<style>
+    
+ </style>
+<title>Login page</title>
+</head>
+<body>
+<table>
+<tr><td><form> Admin</form></td><td><form>Faculity</form></td></tr>
+<tr><td><form>ID:<input type="text" name="aid" size=30 maxlength=30 required></form></td><td><form>ID: <input type="text" name="fid"
+size=30 maxlength=30 required></form></td></tr>
+
+<tr><td><form> Pwd:<input type="text" name="apwd" size=30 maxlength=30 required></form></td><td><form>Pwd:<input type="text" name="fpwd" size=30 maxlength=30 required></form></td></tr>
+
+<tr><td><form> <p align="center">
+        <input type="button" name="login" value="LOGIN" \ ></p></form></td><td><form> <p align="center">
+        <input type="button" name="login" value="LOGIN" \ ></p></form></td></tr>
+</table>
+
+</body>
+</html>

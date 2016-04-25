@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>Connected To Publisher
+</title>
+</head>
+<body>
+
+<?php
+
+include("../commonHeader.php");
+include("facultyHeader.php");
+?>
+<h1>This Publisher is now connected with you</h1>
+<form method=post action="../dummy.php">
+<?php
+$con=mysqli_connect("localhost","root","toor","fpd") or die("Could not connect");
+
+//print_r($_POST);
+$pid=$_POST['pub'];
+$uid=$_COOKIE['usr345faculty'];
+echo "<br>User: ".$uid."<br>Publisher: " .$pid;
+//$query="insert into publisher_user(publisher_id,user_id) values(1,1)";
+$query="insert into publisher_user(publisher_id,user_id) values(".$pid.",".$uid.");";
+mysqli_query($con,$query);
+?>
+
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Faculty Publications Database</title>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+<script type="text/javascript" src="layout/scripts/jquery.slidepanel.setup.js"></script>
+</head>
+<body id="top">
+<!-- ################################################################################################ -->
+<div class="wrapper row0">
+  <div id="topbar" class="clear"> 
+    <!-- ################################################################################################ -->
+    <nav>
+      <ul>
+        <font size=3>
+        <li><a href="./cpanel/index.php">Click Here To Login</a></li>
+       
+    </font>
+      </ul>
+    </nav>
+     </div>
+</div>
+<!-- ################################################################################################ --> 
+<!-- ################################################################################################ --> 
+<!-- ################################################################################################ -->
+<div class="wrapper row1">
+  <header id="header" class="clear"> 
+    <!-- ################################################################################################ -->
+    <div id="logo" class="fl_left">
+      <h1><a href="index.php">Faculty Publications Database</a></h1>
+      <p>A Project Dedicated To Faculties</p>
+ <!--   </div>
+    <div class="fl_right">-->
+      <form class="clear" method="post" action="#">
+        <fieldset>
+        <h3>Published Reports</h3>
+        <?php
+$con=mysqli_connect("localhost","root","toor","fpd") or die("Unable to connect to database");
+$query="select * from file inner join online_published  where online_published.file_id=file.id;";
+//echo $query;
+$result=mysqli_query($con,$query);
+//echo $query;
+//print_r($result);
+if(mysqli_num_rows($result)==0)
+{
+	echo "No reports published yet";
+}
+else
+{
+	$total=mysqli_num_rows($result);
+	if($_SERVER['REQUEST_METHOD']=='POST')
+	{
+		$llim=($_POST['indx']*20)-20;
+	}
+	else
+	{
+		$llim=0;
+	}
+	$ulim=$llim+20;
+	$i=0;
+	for($i=1;$i<=$llim;$i=$i+1)
+	{
+		$row=mysqli_fetch_assoc($result);
+	}
+		
+
+	echo "<table border=1>
+<tr><td><b>Report Topic</b></td><td><b>Faculty</b></td><td><b>Admin Of Faculty</b></td><td><b>Publisher Associated</b></td><td><b>Filename</b></td></tr>";
+	for(;$i<=$ulim;$i=$i+1){
+	if($row=mysqli_fetch_assoc($result))
+	{
+		echo "<tr>";
+		//reprt name
+		$query1="select * from report where id=".$row['report_id'];
+		$result1=mysqli_query($con,$query1);
+		$row1=mysqli_fetch_assoc($result1);
+		echo "<td>".$row1['name']."</td>";
+		
+		//user name
+		$query2="select * from user where id=".$row['user_id'];
+		$result2=mysqli_query($con,$query2);
+		$row2=mysqli_fetch_assoc($result2);
+		echo "<td>".$row2['name']."</td>";
+		
+		//admin name
+		$query3="select * from user where id=".$row['admin_id'];
+		$result3=mysqli_query($con,$query3);
+		$row3=mysqli_fetch_assoc($result3);
+		echo "<td>".$row3['name']."</td>";
+		
+		//publisher name
+		$query4="select * from publisher where id=".$row1['publisher_id'];
+		$result4=mysqli_query($con,$query4);
+		//print_r($result4);
+		$row4=mysqli_fetch_assoc($result4);
+		echo "<td>".$row4['name']."</td>";
+		
+		echo "<td><a target='_blank' style='color:black' href='./cpanel/uploads/".$row['name']."'>".$row['name']."</a></td>";
+	
+		echo "</tr>";
+	
+	}}
+	echo "</table>";
+	$numsubmit=$total/20;
+	echo "<form action='#' method=post>";
+	for($j=0;$j<=$numsubmit;$j=$j+1)
+	{
+		echo "<input type=submit name='indx' value=".($j+1).">";
+	}
+	echo "</form>";
+}
+
+
+?>
+
+         <!-- <legend>Search:</legend>
+          <input type="text" value="" placeholder="Search Here">
+          <button class="fa fa-search" type="submit" title="Search"><em>Search</em></button> -->
+        </fieldset>
+      </form>
+    </div>
+    </header>
+</div>
+<div class="wrapper row2">
+  <div class="rounded">
+    <nav id="mainav" class="clear"> 
+       </nav>
+  </div>
+</div>
+
+       <!-- ################################################################################################ --> 
+    </div>
+  </div>
+</div>
+<!-- ################################################################################################ --> 
+<!-- ################################################################################################ --> 
+<!-- ################################################################################################ -->
+<div class="wrapper row4">
+  <div class="rounded">
+    <footer id="footer" class="clear"> 
+      <!-- ################################################################################################ -->
+      <div class="one_third first">
+        <figure class="center"><img class="btmspace-15" src="images/demo/worldmap.png" alt="">
+          <figcaption><a href="#">Find Us With Google Maps &raquo;</a></figcaption>
+        </figure>
+      </div>
+      <div class="one_third">
+        <address>
+        National Institute of Technology Calicut<br>
+        NIT Campus P.O. <br>
+        Kozhikode Kerala<br>
+        PIN : 673602<br>
+        <br>
+        <i class="fa fa-phone pright-10"></i> 0495 2286117<br>
+        <i class="fa fa-envelope-o pright-10"></i> <a href="#">www.nitc.ac.in</a>
+        </address>
+      </div>
+      <!-- ################################################################################################ --> 
+    </footer>
+  </div>
+</div>
+<!-- ################################################################################################ -->
+<div class="wrapper row5">
+  <div id="copyright" class="clear"> 
+    <!-- ################################################################################################ -->
+    <p class="fl_left">Copyright &copy; 2014 - All Rights Reserved - <a href="#">CSED NITC</a></p>
+    <p class="fl_right">by <a target="_blank" href="http://www.os-templates.com/" title="Free Website Templates">Abhishek, Vivek, Jaigish, Ajay, Ashok</a></p>
+    <!-- ################################################################################################ --> 
+  </div>
+</div>
+<!-- JAVASCRIPTS --> 
+<script src="layout/scripts/jquery.min.js"></script> 
+<script src="layout/scripts/jquery.fitvids.min.js"></script> 
+<script src="layout/scripts/jquery.mobilemenu.js"></script> 
+<script src="layout/scripts/tabslet/jquery.tabslet.min.js"></script>
+</body>
+</html>

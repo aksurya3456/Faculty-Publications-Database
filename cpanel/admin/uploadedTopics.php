@@ -1,0 +1,40 @@
+<html>
+<head>
+<title>
+Admin Home</title>
+</head>
+<body bgcolor="#ffefd5">
+<?php
+
+include("../commonHeader.php");
+include("adminHeader.php");
+$con=mysqli_connect("localhost","root","toor","fpd");
+?>
+<h3>Users Under You Have Submitted The Files Under Following Topics</h3>
+<?php
+$query="select distinct report_id from file where admin_id=".$_COOKIE['usr345admin'];
+$result=mysqli_query($con,$query);
+if(mysqli_num_rows($result)==0)
+{
+	echo "No One submitted any report under your topics.";
+}
+else
+{
+	echo "<form action='usersuploaded.php' method=post><b>Report Name</b>";
+	while($row=mysqli_fetch_assoc($result))
+	{
+	$query1="select * from report where id=".$row['report_id'];
+	$result1=mysqli_query($con,$query1);
+	$row1=mysqli_fetch_assoc($result1);
+	echo "<br><input type=radio name='report' value=".$row1['id']." required>".$row1['name'];
+	}
+	echo "<br><br><input type=submit value='Select And Click To See The Uploaded Files'></form>";
+
+}
+
+
+?>
+
+
+</body>
+</html>
